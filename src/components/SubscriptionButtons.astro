@@ -1,27 +1,45 @@
 ---
-import { Claude, OpenAI, Gemini } from "@lobehub/icons";
+import { ServiceIcon } from "./ServiceIcon";
 ---
 
 <div class="container">
     <a href="https://claude.ai/settings/billing" target="_blank" rel="noopener noreferrer" class="card claude">
-        <div class="icon-wrapper">
-            <Claude.Combine size={80} />
+        <div class="card-content">
+            <div class="icon-wrapper">
+                <ServiceIcon name="Claude" size={48} client:only="react" />
+            </div>
+            <div class="text-content">
+                <span class="label">Claude</span>
+                <span class="sub-label">Manage Subscription</span>
+            </div>
+            <div class="arrow-icon">→</div>
         </div>
-        <span class="label">Claude</span>
     </a>
 
     <a href="https://chatgpt.com/#settings/Account" target="_blank" rel="noopener noreferrer" class="card chatgpt">
-        <div class="icon-wrapper">
-            <OpenAI.Combine size={80} />
+        <div class="card-content">
+            <div class="icon-wrapper">
+                <ServiceIcon name="OpenAI" size={48} client:only="react" />
+            </div>
+            <div class="text-content">
+                <span class="label">ChatGPT</span>
+                <span class="sub-label">Manage Subscription</span>
+            </div>
+            <div class="arrow-icon">→</div>
         </div>
-        <span class="label">ChatGPT</span>
     </a>
 
     <a href="https://one.google.com/settings" target="_blank" rel="noopener noreferrer" class="card gemini">
-        <div class="icon-wrapper">
-            <Gemini.Combine size={80} />
+        <div class="card-content">
+            <div class="icon-wrapper">
+                <ServiceIcon name="Gemini" size={48} client:only="react" />
+            </div>
+            <div class="text-content">
+                <span class="label">Gemini</span>
+                <span class="sub-label">Manage Subscription</span>
+            </div>
+            <div class="arrow-icon">→</div>
         </div>
-        <span class="label">Gemini</span>
     </a>
 </div>
 
@@ -29,96 +47,139 @@ import { Claude, OpenAI, Gemini } from "@lobehub/icons";
     .container {
         display: flex;
         flex-direction: column;
-        gap: 2rem;
+        gap: 1.25rem;
         align-items: center;
         justify-content: center;
         min-height: 80vh;
         padding: 2rem;
-    }
-
-    @media (min-width: 768px) {
-        .container {
-            flex-direction: row;
-            gap: 3rem;
-        }
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
     }
 
     .card {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 250px;
-        height: 250px;
-        border-radius: 24px;
+        display: block;
+        width: 100%;
         text-decoration: none;
         color: white;
-        transition:
-            transform 0.3s ease,
-            box-shadow 0.3s ease;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Darker shadow for dark theme */
-        background-color: #2a2a2a; /* Fallback/Base color */
+        border-radius: 24px;
+        transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
         position: relative;
         overflow: hidden;
-        border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+        backdrop-filter: blur(12px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 1.25rem 1.5rem;
+        gap: 1.25rem;
+        background: rgba(255, 255, 255, 0.03);
+        height: 100%;
+        position: relative;
+        z-index: 1;
+    }
+
+    .card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
+        transform: skewX(-20deg) translateX(-150%);
+        transition: transform 0.6s;
+        pointer-events: none;
+    }
+
+    .card:hover::before {
+        transform: skewX(-20deg) translateX(150%);
     }
 
     .card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        transform: translateY(-4px) scale(1.01);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+        border-color: rgba(255, 255, 255, 0.3);
     }
 
     .icon-wrapper {
-        width: 100px;
-        height: 100px;
-        margin-bottom: 1.5rem;
         display: flex;
         align-items: center;
         justify-content: center;
+        width: 56px;
+        height: 56px;
+        padding: 0.25rem;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .card:hover .icon-wrapper {
+        transform: scale(1.1) rotate(5deg);
+        background: rgba(255, 255, 255, 0.25);
+    }
+
+    .text-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+        text-align: left;
     }
 
     .label {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         font-weight: 700;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.3px;
+        line-height: 1.2;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
-    /* 
-       Since we are using "Combine" icons which are likely colorful, 
-       we might want to tone down the card backgrounds or make them more subtle 
-       to let the icons pop. Or we can keep the gradients if they match.
-       Let's keep the gradients but maybe slightly darker or just as is.
-       The user asked for "Dark Theme", so maybe the cards should be dark 
-       and the icons provide the color? 
-       
-       However, the previous design had specific gradients for each service.
-       Let's try to keep the identity but maybe use a dark glassmorphism effect 
-       or keep the gradients. 
-       
-       Let's stick to the gradients for now as they provide good click targets.
-    */
+    .sub-label {
+        font-size: 0.85rem;
+        opacity: 0.9;
+        font-weight: 500;
+        letter-spacing: 0.2px;
+    }
 
-    /* Claude - Warm/Neutral */
+    .arrow-icon {
+        font-size: 1.5rem;
+        opacity: 0.6;
+        transform: translateX(0);
+        transition: all 0.3s ease;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .card:hover .arrow-icon {
+        opacity: 1;
+        transform: translateX(4px);
+    }
+
+    /* Claude - Sophisticated Warmth */
     .claude {
-        background: linear-gradient(135deg, #d97757 0%, #c96646 100%);
+        background: linear-gradient(110deg, #cc5a38 0%, #e88b6f 100%);
     }
     .claude:hover {
-        background: linear-gradient(135deg, #e98767 0%, #d97656 100%);
+        background: linear-gradient(110deg, #d66442 0%, #f09a7e 100%);
     }
 
-    /* ChatGPT - Teal/Green */
+    /* ChatGPT - Modern Teal */
     .chatgpt {
-        background: linear-gradient(135deg, #74aa9c 0%, #10a37f 100%);
+        background: linear-gradient(110deg, #0f8a6b 0%, #55cbb0 100%);
     }
     .chatgpt:hover {
-        background: linear-gradient(135deg, #84baac 0%, #20b38f 100%);
+        background: linear-gradient(110deg, #139b78 0%, #63dcc0 100%);
     }
 
-    /* Gemini - Blue/Purple Gradient */
+    /* Gemini - Deep Cosmic */
     .gemini {
-        background: linear-gradient(135deg, #4e87f5 0%, #8e5af7 100%);
+        background: linear-gradient(110deg, #2d5af5 0%, #8c52ff 100%);
     }
     .gemini:hover {
-        background: linear-gradient(135deg, #5e97ff 0%, #9e6aff 100%);
+        background: linear-gradient(110deg, #3d6aff 0%, #9d62ff 100%);
     }
 </style>
