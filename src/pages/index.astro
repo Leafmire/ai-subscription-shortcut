@@ -1,11 +1,37 @@
 ---
-import SubscriptionButtons from "../components/SubscriptionButtons.astro";
+import MosaicButton from "../components/MosaicButton";
 import Layout from "../layouts/Layout.astro";
 import "../styles/global.css";
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-	<SubscriptionButtons />
+	<main class="h-screen w-screen flex flex-col bg-neutral-950 overflow-hidden">
+		<MosaicButton 
+			client:load 
+			title="Claude" 
+			subtitle="Manage Subscription" 
+			href="https://claude.ai/settings/billing" 
+			iconName="Claude"
+			bgColorClass="bg-gradient-to-br from-[#cc5a38] to-[#e88b6f]"
+			client:only="react"
+		/>
+		<MosaicButton 
+			client:load 
+			title="ChatGPT" 
+			subtitle="Manage Subscription" 
+			href="https://chatgpt.com/#settings/Account" 
+			iconName="OpenAI"
+			bgColorClass="bg-gradient-to-br from-[#0f8a6b] to-[#55cbb0]"
+			client:only="react"
+		/>
+		<MosaicButton 
+			client:load 
+			title="Gemini" 
+			subtitle="Manage Subscription" 
+			href="https://one.google.com/settings" 
+			iconName="Gemini"
+			bgColorClass="bg-gradient-to-br from-[#2d5af5] to-[#8c52ff]"
+			client:only="react"
+		/>
+	</main>
 </Layout>
